@@ -58,6 +58,7 @@ void insert_sort(list)
     }
 }
 ```
+**测试**
 链式版本
 ```cpp
 template<typename T>
