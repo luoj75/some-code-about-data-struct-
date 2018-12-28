@@ -124,11 +124,29 @@ void select_sort(int *list, int count)
 
 ## 2.3. 希尔排序  
 
+**二路希尔排序**
 ```cpp
-void shellSort(int *a,int len) //希尔排序
+void shellSort(int *a,int len) //希尔排序,len：数组长度
 {
     int i,j,increment,temp;
     for(increment=len/2;increment>0;increment/=2)   //二路希尔排序
+    {
+        for(i=increment;i<len;i++)   //进行插入排序
+        {
+            temp=a[i];
+            for(j=i; j>=increment&&a[j-increment]>temp; j-=increment)a[j]=a[j-increment] ;   //升序
+            a[j]=temp;
+        }
+    }
+}
+```
+
+**任意步长希尔排序**
+```cpp
+void shellSort(int *a,int len, int step) //希尔排序,len：数组长度，step:步长
+{
+    int i,j,increment,temp;
+    for(increment=len-step; increment>0; increment -= step)   //二路希尔排序
     {
         for(i=increment;i<len;i++)   //进行插入排序
         {
