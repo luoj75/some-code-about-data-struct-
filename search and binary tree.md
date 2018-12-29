@@ -503,3 +503,7 @@ void levelTraversal(BinaryNode<T>* root, void (*visit)(T &x))
 
 ## 2.3. 乘法密码
 ![](_v_images/20181229190421182_3748.png)
+
+![](_v_images/20181229190421182_3748.png)
+
+
