@@ -501,4 +501,5 @@ void levelTraversal(BinaryNode<T>* root, void (*visit)(T &x))
 
 ## 5.2. 最短路径Dijstra算法
 
-
+## 2.3. 乘法密码
+![](_v_images/20181229190421182_3748.png)
