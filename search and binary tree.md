@@ -289,10 +289,90 @@ void recursive_preorder(Binary_node<T> *root)
         recursive_preorder(root->right);
     }
 }
+//非递归前序遍历
+void preorderTraversal(TreeNode *root, vector<int> &path)
+{
+    stack<TreeNode *> s;
+    TreeNode *p = root;
+    while(p != NULL || !s.empty())
+    {
+        while(p != NULL)
+        {
+            path.push_back(p->val);
+            s.push(p);
+            p = p->left;
+        }
+        if(!s.empty())
+        {
+            p = s.top();
+            s.pop();
+            p = p->right;
+        }
+    }
+}
+
 ```
 ### 4.1.2. 中序遍历
+```cpp
+//非递归中序遍历
+void inorderTraversal(TreeNode *root, vector<int> &path)
+{
+    stack<TreeNode *> s;
+    TreeNode *p = root;
+    while(p != NULL || !s.empty())
+    {
+        while(p != NULL)
+        {
+            s.push(p);
+            p = p->left;
+        }
+        if(!s.empty())
+        {
+            p = s.top();
+            path.push_back(p->val);
+            s.pop();
+            p = p->right;
+        }
+    }
+}
+```
 ### 4.1.3. 后序遍历
+```cpp
+void postorderTraversal(TreeNode *root, vector<int> &path)
+{
+    stack<TempNode *> s;
+    TreeNode *p = root;
+    TempNode *temp;
+    while(p != NULL || !s.empty())
+    {
+        while(p != NULL) //沿左子树一直往下搜索，直至出现没有左子树的结点
+        {
+            TreeNode *tempNode = new TreeNode;
+            tempNode->btnode = p;
+            tempNode->isFirst = true;
+            s.push(tempNode);
+            p = p->left;
+        }
+        if(!s.empty())
+        {
+            temp = s.top();
+            s.pop();
+            if(temp->isFirst == true)   //表示是第一次出现在栈顶
+            {
+                temp->isFirst = false;
+                s.push(temp);
+                p = temp->btnode->right;
+            }
+            else  //第二次出现在栈顶
+            {
+                path.push_back(temp->btnode->val);
+                p = NULL;
+            }
+        }
+    }
+}
 
+```
 ## 4.2. Binary_tree类实现
 ```cpp
 template<typename T>
