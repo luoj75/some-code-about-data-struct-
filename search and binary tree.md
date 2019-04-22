@@ -338,38 +338,26 @@ void inorderTraversal(TreeNode *root, vector<int> &path)
 ```
 ### 4.1.3. 后序遍历
 ```cpp
-void postorderTraversal(TreeNode *root, vector<int> &path)
-{
-    stack<TempNode *> s;
-    TreeNode *p = root;
-    TempNode *temp;
-    while(p != NULL || !s.empty())
-    {
-        while(p != NULL) //沿左子树一直往下搜索，直至出现没有左子树的结点
-        {
-            TreeNode *tempNode = new TreeNode;
-            tempNode->btnode = p;
-            tempNode->isFirst = true;
-            s.push(tempNode);
+void PostOrder(TreeNode *root) {
+    TreeNode *p = root, *r = NULL;
+    stack<TreeNode*> s;
+    while (p || !s.empty()) {
+        if (p) {//走到最左边
+            s.push(p);
             p = p->left;
         }
-        if(!s.empty())
-        {
-            temp = s.top();
-            s.pop();
-            if(temp->isFirst == true)   //表示是第一次出现在栈顶
-            {
-                temp->isFirst = false;
-                s.push(temp);
-                p = temp->btnode->right;
+        else {
+            p = s.top();
+            if (p->right && p->right != r)//右子树存在，未被访问
+                p = p->right;
+            else {
+                s.pop();
+                visit(p->val);
+                r = p;//记录最近访问过的节点
+                p = NULL;//节点访问完后，重置p指针
             }
-            else  //第二次出现在栈顶
-            {
-                path.push_back(temp->btnode->val);
-                p = NULL;
-            }
-        }
-    }
+        }//else
+    }//while
 }
 
 ```
